@@ -1,0 +1,5 @@
+site_name: Skua
+theme:
+  name: 'material'
+markdown_extensions:
+- codehilite
