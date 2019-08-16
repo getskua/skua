@@ -1,12 +1,12 @@
 import frontmatter
 import markdown
 
-from . import Preprocessor
+from . import Preprocessor, Config
 
 
 class MarkdownPreprocessor(Preprocessor):
-    def __init__(self):
-        super(MarkdownPreprocessor, self).__init__()
+    def __init__(self, config: Config):
+        super(MarkdownPreprocessor, self).__init__(config)
 
     def preprocess(self, input_file):
         file = frontmatter.load(input_file)
