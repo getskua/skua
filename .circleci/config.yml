@@ -17,4 +17,4 @@ jobs:
       - run: python setup.py sdist; python setup.py bdist_wheel
       - run:
           name: upload the build module to pypi
-          command: twine upload dist/* -u $pypi_username -p $pypi_password
+          command: pip install twine; twine upload dist/* -u $pypi_username -p $pypi_password
