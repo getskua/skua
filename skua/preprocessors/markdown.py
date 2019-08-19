@@ -10,5 +10,7 @@ class MarkdownPreprocessor(Preprocessor):
 
     def preprocess(self, input_file):
         file = frontmatter.load(input_file)
-        file.content = markdown.markdown(file.content)
+        content = markdown.markdown(file.content)
+        file = dict(file)
+        file['content'] = content
         return file
