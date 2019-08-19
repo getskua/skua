@@ -1,4 +1,4 @@
 [build]
 base="/"
 publish="site/"
-command="source venv/bin/activate; pip install pymdown-extensions; pip install mkdocs; pip install mkdocs-material; pip install pygments; mkdocs build"
+command="pip install -r netlify-requirements.txt; mkdocs build"
