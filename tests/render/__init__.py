@@ -18,4 +18,5 @@ class TestRenderWithMockSite(unittest.TestCase):
         return self.templates.render_template(**self.md_preprocessor(file))
 
     def testFile1(self):
+        print(__file__)
         rendered_file = self.loadAndRenderMarkdown('src/blog/skua-is-a-static-site-generator.md')
