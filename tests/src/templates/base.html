@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skua Test Site</title>
+    <!-- Load Sabre CSS https://sabrecss.netlify.com -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/teymour-aldridge/sabre@master/sass/styles.min.css">
+</head>
+<body>
+<h1 class="site-name">{{ site_name }}</h1>
+<p class="site-author">Written by: {{ site_author }}</p>
+{% block content %}
+{% endblock %}
+</body>
+</html>

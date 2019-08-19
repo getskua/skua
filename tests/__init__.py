@@ -1,1 +1,1 @@
-from .preprocessors.markdown import TestMarkdownPreprocessor
+from .preprocessors import TestMarkdownPreprocessor
