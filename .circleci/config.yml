@@ -5,11 +5,16 @@ jobs:
     steps:
       - checkout
       - run:
+          name: remove old python .whl files
+          command: rm -rf dist/*
+      - run:
           name: remove development virtualenv and add new one
           command: |
             rm -rf venv
             python3.7 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-      - run: make package
-      - run: twine upload dist/* -u $pypi_username -p $pypi_password
+      - run: python setup.py sdist; python setup.py bdist_wheel
+      - run:
+          name: upload the build module to pypi
+          command: twine upload dist/* -u $pypi_username -p $pypi_password
