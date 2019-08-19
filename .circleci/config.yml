@@ -3,18 +3,23 @@ jobs:
     docker:
     - image: circleci/python:3.7
     steps:
-      - checkout
-      - run:
-          name: remove old python .whl files
-          command: rm -rf dist/*
-      - run:
-          name: remove development virtualenv and add new one
-          command: |
-            rm -rf venv
-            python3.7 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - run: python setup.py sdist; python setup.py bdist_wheel
-      - run:
-          name: upload the build module to pypi
-          command: pip install twine --user; twine upload dist/* -u $pypi_username -p $pypi_password
+    - checkout
+    - run:
+        name: remove development virtualenv and add new one
+        command: |
+          rm -rf venv
+          python3.7 -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
+    - run:
+        name: run tests
+        command: python -m unittest tests
+    - run:
+        name: remove old python .whl files
+        command: rm -rf dist/*
+    - run:
+        name: build the module
+        command: python setup.py sdist; python setup.py bdist_wheel
+    - run:
+        name: upload the build module to pypi
+        command: pip install twine --user; twine upload dist/* -u $pypi_username -p $pypi_password
