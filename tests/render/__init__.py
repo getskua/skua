@@ -7,7 +7,7 @@ from skua.render import Templates
 
 class TestRenderWithMockSite(unittest.TestCase):
     def setUp(self):
-        self.templates = Templates(__name__, './src/templates')
+        self.templates = Templates(__name__, 'tests/src/templates')
         self.config = Config({
             'site_name': "Test Site!",
             'author': "Person 1"
@@ -19,4 +19,4 @@ class TestRenderWithMockSite(unittest.TestCase):
 
     def testFile1(self):
         print(__file__)
-        rendered_file = self.loadAndRenderMarkdown('src/blog/skua-is-a-static-site-generator.md')
+        rendered_file = self.loadAndRenderMarkdown('tests/src/blog/skua-is-a-static-site-generator.md')

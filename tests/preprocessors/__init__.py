@@ -12,7 +12,7 @@ class TestMarkdownPreprocessor(unittest.TestCase):
         })
         import os
         markdown_preprocessor = MarkdownPreprocessor(config)
-        output = markdown_preprocessor('src/index.md')
+        output = markdown_preprocessor('tests/src/index.md')
 
         self.assertTrue(output['site_name'] == config.config['site_name'])
         self.assertTrue(output['author'] == config.config['author'])
