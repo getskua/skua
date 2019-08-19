@@ -1,0 +1,15 @@
+jobs:
+  build:
+    docker:
+    - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+        name: remove development virtualenv and add new one
+        command: |
+          rm -rf venv
+          python3.7 -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
+      - run: make package
+      - run: twine upload dist/* -u $pypi_username -p $pypi_password
