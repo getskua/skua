@@ -1,5 +1,7 @@
 site_name: Skua
 theme:
   name: 'material'
+nav:
+  Home: index.md
 markdown_extensions:
 - codehilite
