@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="skua",
-    version="0.0.3",
+    version="0.0.4",
     author="Teymour Aldridge",
     author_email="teymour.aldridge@icloud.com",
     description="A static site generator.",

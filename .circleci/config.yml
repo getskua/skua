@@ -13,7 +13,7 @@ jobs:
           pip install -r requirements.txt
     - run:
         name: run tests
-        command: source venv/bin/activate; python -m unittest tests
+        command: source venv/bin/activate; pip install -r test-requirements.txt; python -m unittest tests
     - run:
         name: remove old python .whl files
         command: rm -rf dist/*

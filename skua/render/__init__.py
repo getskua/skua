@@ -31,4 +31,4 @@ class Templates(object):
              template_file in template_dir_index])
 
     def render_template(self, template, **kwargs):
-        self.templates[template].render(**kwargs)
+        return self.templates[template].render(**kwargs)
