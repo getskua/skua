@@ -5,7 +5,7 @@ from . import Preprocessor, Config
 
 
 class MarkdownPreprocessor(Preprocessor):
-    def __init__(self, config: Config):
+    def __init__(self, config: Config=Config({})):
         super(MarkdownPreprocessor, self).__init__(config)
 
     def preprocess(self, input_file):
