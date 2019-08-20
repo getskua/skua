@@ -1,4 +1,5 @@
 # Skua
+[![CircleCI](https://circleci.com/gh/teymour-aldridge/skua.svg?style=shield)](https://circleci.com/gh/teymour-aldridge/skua)
 ### A pythonic static site generator.
 A static site generator written in Python. 
 ### Documentation
