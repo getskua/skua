@@ -12,5 +12,5 @@ Skua can be imported and used to create Python scripts, which allows for greater
 Skua version numbers are in the format MAJOR.MINOR.PATCH.
 
 * MAJOR: A major release will include breaking API changes and old code will need to be ported over to a new version. 
-* MINOR: A minor release will be backwards compatible with all code on the same MAJOR version.
+* MINOR: A minor release will be backwards compatible with all code on the same MAJOR version. It will release new functionality, but in a backwards compatible manner.
 * PATCH: This is a small release to fix something within the latest MINOR version. It does not introduce new functionality.
