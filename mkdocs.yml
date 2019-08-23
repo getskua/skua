@@ -15,6 +15,7 @@ nav:
 - Changelog: changelog.md
 - Aknowledgements: aknowledgments.md
 markdown_extensions:
+- admonition
 - codehilite
 - pymdownx.arithmatex
 - pymdownx.betterem:
