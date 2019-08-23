@@ -11,3 +11,10 @@ from skua.preprocessors import Config
 markdown_pipeline(__name__, 'src/templates', Config({'some_variables': 'here'}))
 ```
 You can construct your own pipelines, this can be done using the `skua.pipelines.Pipeline` class. This class is initialized with a list of callable objects.  
+```python
+from skua.pipelines import Pipeline
+from skua.preprocessors import Config
+from skua.preprocessors.markdown import MarkdownPreprocessor
+from skua.render import Templates
+pipeline = Pipeline(Templates(__name__, 'src/templates'), MarkdownPreprocessor(Config({'some_variables': 'here'})))
+```
