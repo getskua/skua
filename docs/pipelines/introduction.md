@@ -18,3 +18,7 @@ from skua.preprocessors.markdown import MarkdownPreprocessor
 from skua.render import Templates
 pipeline = Pipeline(Templates(__name__, 'src/templates'), MarkdownPreprocessor(Config({'some_variables': 'here'})))
 ```
+### Pipeline process
+1. Find files
+2. Preprocess files (turn them into dictionaries)
+3. Render files (produce HTML files)
