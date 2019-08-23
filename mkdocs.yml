@@ -4,8 +4,14 @@ theme:
 
 nav:
 - Home: index.md
+- Files:
+    - Introduction: 'files/introduction.md'
+- Pipelines:
+    - Introduction: 'pipelines/introduction.md'
 - Preprocessors:
     - Introduction: 'preprocessors/introduction.md'
+- Render:
+    - Introduction: 'render/introduction.md'
 - Changelog: changelog.md
 - Aknowledgements: aknowledgments.md
 markdown_extensions:
