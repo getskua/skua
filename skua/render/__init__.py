@@ -32,3 +32,12 @@ class Templates(object):
 
     def render_template(self, template, **kwargs):
         return self.templates[template].render(**kwargs)
+
+    def __call__(self, template, **kwargs):
+        """
+        The __call__ method is implemented to allow the template suite to work with pipelines.
+        :param template:
+        :param kwargs:
+        :return:
+        """
+        return self.render_template(template, **kwargs)
