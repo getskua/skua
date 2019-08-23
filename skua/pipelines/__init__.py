@@ -34,4 +34,4 @@ class Pipeline(object):
 
 
 def markdown_pipeline(import_name, template_dir: str, config: Config):
-    return Pipeline(Templates(import_name, template_dir), MarkdownPreprocessor(config))
+    return Pipeline(MarkdownPreprocessor(config), Templates(import_name, template_dir))

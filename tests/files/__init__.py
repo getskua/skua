@@ -19,6 +19,6 @@ class TestOutputFilenameGenerator(unittest.TestCase):
             'src', 'build')
         expectation = ['project/docs/build/index.md', 'project/docs/build/blog/skua-is-a-static-file-generator.md',
                        'project/docs/build/LICENSE.md']
-        print(list(output))
+        list(output)
         for (y_hat, y) in zip(output, expectation):
             self.assertTrue(y_hat == y)
