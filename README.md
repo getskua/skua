@@ -1,5 +1,7 @@
 # Skua
 [![CircleCI](https://circleci.com/gh/teymour-aldridge/skua.svg?style=shield)](https://circleci.com/gh/teymour-aldridge/skua)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b9b885cc-1a28-4640-be7e-d37b7b56703b/deploy-status)](https://app.netlify.com/sites/skua/deploys)
+
 ### A pythonic static site generator.
 A static site generator written in Python. 
 ### Documentation
