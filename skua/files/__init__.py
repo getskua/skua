@@ -1,6 +1,8 @@
 import pathlib
 from typing import List
 
+from .git import Git
+
 
 def generate_output_filenames(input_files: List[str], source_dir: str, output_dir: str):
     for file in input_files:
