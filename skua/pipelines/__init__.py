@@ -1,4 +1,4 @@
-from typing import Callable, List, Dict
+from typing import Callable, List
 
 from skua.preprocessors import Config
 from skua.preprocessors.markdown import MarkdownPreprocessor
@@ -6,10 +6,11 @@ from skua.render import Templates
 
 
 class Pipeline(object):
-    def __init__(self, *args):
+    def __init__(self, file_finder, *args):
         self.pipeline: List[Callable] = list(args)
+        self.file_finder = file_finder
 
-    def __call__(self, file):
+    def compile_file(self, file):
         for step in self.pipeline:
             if isinstance(step, Templates):
                 file = step(**file)
@@ -17,19 +18,11 @@ class Pipeline(object):
                 file = step(file)
         return file
 
-    def apply_to_files(self, files):
-        """
-        Apply this to a list of files.
-        :param files: A list of files
-        :return: A generator object containing all the preprocessed files.
-        """
-        for file in files:
-            yield self.__call__(file)
-
-    def apply_to_files_and_save(self, files: List[Dict], output_folders):
-        for i, file in enumerate(files):
-            output = self.__call__(file)
-            with open(output_folders[i], 'w+') as f:
+    def __call__(self, *args, **kwargs):
+        files = self.file_finder()
+        for input_file, output_file in files:
+            output = self.compile_file(input_file)
+            with open(output_file, 'w+') as f:
                 f.write(output)
 
 

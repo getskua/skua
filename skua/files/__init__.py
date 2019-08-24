@@ -1,11 +1,41 @@
 import glob
 import os
 import pathlib
-from typing import List
+from typing import List, Dict
 
 import frontmatter
 
 from .git import Git
+
+
+class Files(object):
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def find_all(self, *args, **kwargs) -> List[Dict]:
+        pass
+
+    def __call__(self, *args, **kwargs) -> List[Dict]:
+        return self.find_all()
+
+
+class AllMarkdownFiles(Files):
+    def __init__(self, input_dir, output_dir, detailed_indexing=True):
+        super(AllMarkdownFiles, self).__init__()
+        """
+        Finds all markdown files in a directory and lists them. 
+        """
+        self.index: bool = detailed_indexing
+        self.input_dir = input_dir
+        self.output_dir = output_dir
+
+    def find_all(self):
+        """
+        Find all the files. This method is accessible through the __call__ method of the class.
+        :return: A generator containing input filename, output filename tuple pairs.
+        """
+        files = generate_detailed_index(self.input_dir, file_extension="md")
+        return zip(files, generate_output_filenames(files, source_dir=self.input_dir, output_dir=self.output_dir))
 
 
 def generate_output_filenames(input_files: List[str], source_dir: str, output_dir: str):
