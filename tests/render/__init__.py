@@ -1,3 +1,4 @@
+import pathlib
 import unittest
 
 from bs4 import BeautifulSoup
@@ -13,7 +14,7 @@ class TestRenderWithMockSite(unittest.TestCase):
     """
 
     def setUp(self):
-        self.templates = Templates('tests/src/templates')
+        self.templates = Templates(pathlib.Path('tests/src/templates'))
         self.config = Config({
             'site_name': "Test Site!",
             'author': "Person 1"
@@ -23,7 +24,7 @@ class TestRenderWithMockSite(unittest.TestCase):
     def loadAndRenderMarkdown(self, file):
         return self.templates.render_template(**self.md_preprocessor(file))
 
-    def testFile1(self):
+    def test_file_1(self):
         rendered_file = self.loadAndRenderMarkdown('tests/src/blog/skua-is-a-static-site-generator.md')
         dictionary = self.md_preprocessor('tests/src/blog/skua-is-a-static-site-generator.md')
 

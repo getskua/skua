@@ -1,3 +1,4 @@
+import pathlib
 from typing import Callable, List
 
 from skua.files import FindFilesByExtension
@@ -15,13 +16,9 @@ class HTMLPipeline(object):
         """
         self.pipeline: List[Callable] = list(args)
         self.file_finder = file_finder
+        self.files: List[pathlib.Path] = list(self.file_finder())
 
-    def compile_file(self, file):
-        """
-        Turn a single file into an HTML document
-        :param file:
-        :return:
-        """
+    def compile_file(self, file: pathlib.Path):
         for step in self.pipeline:
             if isinstance(step, Templates):
                 file = step(**file)
@@ -29,14 +26,17 @@ class HTMLPipeline(object):
                 file = step(file)
         return file
 
-    def __call__(self, *args, **kwargs):
-        files = self.file_finder()
-        for input_file, output_file in zip(files[0], files[1]):
+    def save_files(self):
+
+        for input_file, output_file in zip(self.files):
             output = self.compile_file(input_file)
             with open(output_file, 'w+') as f:
                 f.write(output)
 
+    def render_file(self, file: pathlib.Path):
+        pass
 
-def markdown_pipeline(source_dir, template_dir: str, config: Config):
+
+def markdown_pipeline(source_dir: pathlib.Path, template_dir: pathlib.Path, config: Config):
     return HTMLPipeline(FindFilesByExtension(source_dir), MarkdownPreprocessor(config),
                         Templates(template_dir))
