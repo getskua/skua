@@ -13,7 +13,7 @@ class TestRenderWithMockSite(unittest.TestCase):
     """
 
     def setUp(self):
-        self.templates = Templates(__name__, 'tests/src/templates')
+        self.templates = Templates('tests/src/templates')
         self.config = Config({
             'site_name': "Test Site!",
             'author': "Person 1"

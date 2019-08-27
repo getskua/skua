@@ -7,11 +7,10 @@ import jinja2
 
 
 class Templates(object):
-    def __init__(self, import_name, template_dir: str, template_extension: str = 'html',
+    def __init__(self, template_dir: str, template_extension: str = 'html',
                  template_prefix: str = "skua_"):
         """
         Stores jinja2 templates. Please note that templates need to be unique.
-        :param import_name: Usually `__name__` (a builtin variable)
         :param template_dir: The folder in which the templates can be found.
         :param template_extension: All files without this extension are ignored.
         """
@@ -35,7 +34,7 @@ class Templates(object):
 
     def __call__(self, template, **kwargs):
         """
-        The __call__ method is implemented to allow the template suite to work with pipelines.
+        The __call__ method is implemented to allow this site to work with Pipelines.
         :param template:
         :param kwargs:
         :return:

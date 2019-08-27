@@ -1,46 +1,55 @@
+import pathlib
 import unittest
 
-from skua.files import generate_output_filenames, generate_sparse_index, generate_detailed_index
+from skua.files import calculate_save_location, FindFilesByExtension
 
 
-class TestOutputFilenameGenerator(unittest.TestCase):
-    def testNoNesting(self):
-        output = generate_output_filenames(
-            ['src/index.md', 'src/blog/skua-is-a-static-file-generator.md', 'src/LICENSE.md'],
-            'src', 'build')
-        expectation = ['build/index.md', 'build/blog/skua-is-a-static-file-generator.md', 'build/LICENSE.md']
-        for (y_hat, y) in zip(output, expectation):
-            self.assertTrue(y_hat == y)
-
-    def testNesting(self):
-        output = generate_output_filenames(
-            ['project/docs/src/index.md', 'project/docs/src/blog/skua-is-a-static-file-generator.md',
-             'project/docs/src/LICENSE.md'],
-            'src', 'build')
-        expectation = ['project/docs/build/index.md', 'project/docs/build/blog/skua-is-a-static-file-generator.md',
-                       'project/docs/build/LICENSE.md']
-        for (y_hat, y) in zip(output, expectation):
-            self.assertTrue(y_hat == y)
+class TestFindFilesByExtension(unittest.TestCase):
+    def test(self):
+        file_finder = FindFilesByExtension(pathlib.Path('tests/src'))
+        output = file_finder()
+        expectation = ['tests/src/index.md', 'tests/src/blog/skua-is-a-static-site-generator.md',
+                       'tests/src/blog/skua-is-still-a-static-site-generator.md', 'tests/src/blog/what-is-markdown.md']
+        self.assertTrue(len(list(output)) == len(expectation))
+        for y in output:
+            self.assertTrue(y in expectation)
 
 
-class TestSparseIndex(unittest.TestCase):
-    def test1(self):
-        output = generate_sparse_index('tests/src/blog')
-        expectation = ['tests/src/blog/skua-is-still-a-static-site-generator.md', 'tests/src/blog/what-is-markdown.md',
-                       'tests/src/blog/skua-is-a-static-site-generator.md']
-        for (y_hat, y) in zip(output, expectation):
-            self.assertTrue(y_hat == y)
+class TestCalculateSaveLocation(unittest.TestCase):
+    def test_root_source_directory(self):
+        source_directory = pathlib.Path('test/input')
+        output_directory = pathlib.Path('build/output')
+        input_directory = ['test/input/collection/markdown_file.md', 'test/input/collection/another_markdown_file.md',
+                           'test/input/collection2/markdown_file.md', 'test/input/collection2/another_markdown_file.md',
+                           'test/input/collection3/markdown_file.md',
+                           'test/input/collection3/another_markdown_file.md']
+        output = [calculate_save_location(pathlib.Path(file), source_directory, output_directory) for file in
+                  input_directory]
+        expectation = ['build/output/collection/markdown_file.md', 'build/output/collection/another_markdown_file.md',
+                       'build/output/collection2/markdown_file.md', 'build/output/collection2/another_markdown_file.md',
+                       'build/output/collection3/markdown_file.md',
+                       'build/output/collection3/another_markdown_file.md', ]
 
+        for y, y_hat in zip(output, expectation):
+            self.assertTrue(str(y) == y_hat)
 
-class TestDetailedIndex(unittest.TestCase):
-    def test2(self):
-        output = generate_detailed_index('tests/src/blog')
-        expectation = [{'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '14:55:11 UTC',
-                        'title': 'Hello World!', 'subtitle': 'I exist!'},
-                       {'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '15:33:00 UTC',
-                        'title': 'Hello World!', 'subtitle': 'I exist!'},
-                       {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
-                        'title': 'Hello World!', 'subtitle': 'I exist!'}]
+    def test_middle_source_directory(self):
+        source_directory = pathlib.Path('test/input')
+        output_directory = pathlib.Path('build/output')
+        input_directory = ['users/test/input/collection/markdown_file.md',
+                           'users/test/input/collection/another_markdown_file.md',
+                           'users/test/input/collection2/markdown_file.md',
+                           'users/test/input/collection2/another_markdown_file.md',
+                           'users/test/input/collection3/markdown_file.md',
+                           'users/test/input/collection3/another_markdown_file.md']
+        output = [calculate_save_location(pathlib.Path(file), source_directory, output_directory) for file in
+                  input_directory]
+        expectation = ['users/build/output/collection/markdown_file.md',
+                       'users/build/output/collection/another_markdown_file.md',
+                       'users/build/output/collection2/markdown_file.md',
+                       'users/build/output/collection2/another_markdown_file.md',
+                       'users/build/output/collection3/markdown_file.md',
+                       'users/build/output/collection3/another_markdown_file.md', ]
 
-        for (y_hat, y) in zip(output, expectation):
-            self.assertTrue(y_hat == y)
+        for y, y_hat in zip(output, expectation):
+            self.assertTrue(str(y) == y_hat)
