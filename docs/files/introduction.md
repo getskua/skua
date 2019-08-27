@@ -1,5 +1,7 @@
 # Files
-### A set of routines to help with the compilation of static sites.
+*A set of routines to help with the compilation of static sites.*
+### `FindFiles` classes
+* `FindFilesByExtension` – locates all the files within a directory (and subdirectories) with a specified extension (by default `md`).
 ### Git routines
 !!! warning
     **Warning: This is untested code! Configuring a git repository inside a git repository is tricky, so the code remains untested.**

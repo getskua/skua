@@ -11,8 +11,9 @@ Skua can be used from the command line (still under development). It takes every
 ### Python scripting
 Skua can be imported and used to create Python scripts, which allows for greater flexibility and custom site generation pipelines. 
 ### Versioning
-Skua version numbers are in the format MAJOR.MINOR.PATCH.
-
-* MAJOR: A major release will include breaking API changes and old code will need to be ported over to a new version. 
-* MINOR: A minor release will be backwards compatible with all code on the same MAJOR version. It will release new functionality, but in a backwards compatible manner.
-* PATCH: This is a small release to fix something within the latest MINOR version. It does not introduce new functionality.
+Skua uses romantic versioning.
+* MAJOR: A conceptually major change with (possible) breaking changes.
+* MINOR: A conceptually minor change with (possible) breaking changes
+* PATCH: Guaranteed not to cause any breaking changes. Used for minor changes, such as:
+    * Bug fixes in the current version
+    * Updates to algorithms which don't add extra dependencies.
