@@ -32,3 +32,16 @@ class TestMarkdownPipelineFunction(unittest.TestCase):
         self.assertTrue(header_h1 == dictionary['title'])
         self.assertTrue(header_h3 == dictionary['subtitle'])
         self.assertTrue(content_exists is not None)
+
+
+class TestConfig(unittest.TestCase):
+    def test_loading_from_file(self):
+        config = Config.from_file(pathlib.Path('tests/src/config.json'))
+        expectation = {
+            "site_name": "Hello World!",
+            "site_author": "Me!"
+        }
+        self.assertTrue(len(expectation) == len(config))
+        for key in expectation.keys():
+            self.assertTrue(key in config.config)
+            self.assertTrue(config.config[key] == expectation[key])
