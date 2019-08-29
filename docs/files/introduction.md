@@ -1,6 +1,8 @@
 # Files
 *A set of routines to help with the compilation of static sites.*
 ### `FindFiles` classes
+FindFiles classes are classes which, when called, return a list of files. These can be used in pipelines to find files to be compiled.
+ 
 * `FindFilesByExtension` – locates all the files within a directory (and subdirectories) with a specified extension (by default `md`).
 ### Git routines
 !!! warning
