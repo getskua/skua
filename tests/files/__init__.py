@@ -25,10 +25,12 @@ class TestCalculateSaveLocation(unittest.TestCase):
                            'test/input/collection3/another_markdown_file.md']
         output = [calculate_save_location(pathlib.Path(file), source_directory, output_directory) for file in
                   input_directory]
-        expectation = ['build/output/collection/markdown_file.md', 'build/output/collection/another_markdown_file.md',
-                       'build/output/collection2/markdown_file.md', 'build/output/collection2/another_markdown_file.md',
-                       'build/output/collection3/markdown_file.md',
-                       'build/output/collection3/another_markdown_file.md', ]
+        expectation = ['build/output/collection/markdown_file.html',
+                       'build/output/collection/another_markdown_file.html',
+                       'build/output/collection2/markdown_file.html',
+                       'build/output/collection2/another_markdown_file.html',
+                       'build/output/collection3/markdown_file.html',
+                       'build/output/collection3/another_markdown_file.html']
 
         for y, y_hat in zip(output, expectation):
             self.assertTrue(str(y) == y_hat)
@@ -44,12 +46,12 @@ class TestCalculateSaveLocation(unittest.TestCase):
                            'users/test/input/collection3/another_markdown_file.md']
         output = [calculate_save_location(pathlib.Path(file), source_directory, output_directory) for file in
                   input_directory]
-        expectation = ['users/build/output/collection/markdown_file.md',
-                       'users/build/output/collection/another_markdown_file.md',
-                       'users/build/output/collection2/markdown_file.md',
-                       'users/build/output/collection2/another_markdown_file.md',
-                       'users/build/output/collection3/markdown_file.md',
-                       'users/build/output/collection3/another_markdown_file.md', ]
+        expectation = ['users/build/output/collection/markdown_file.html',
+                       'users/build/output/collection/another_markdown_file.html',
+                       'users/build/output/collection2/markdown_file.html',
+                       'users/build/output/collection2/another_markdown_file.html',
+                       'users/build/output/collection3/markdown_file.html',
+                       'users/build/output/collection3/another_markdown_file.html']
 
         for y, y_hat in zip(output, expectation):
             self.assertTrue(str(y) == y_hat)

@@ -1,7 +1,7 @@
 import pathlib
 from typing import Callable, List
 
-from skua.files import FindFilesByExtension
+from skua.files import FindFilesByExtension, calculate_save_location
 from skua.preprocessors import Config
 from skua.preprocessors.markdown import MarkdownPreprocessor
 from skua.render import Templates
@@ -26,15 +26,18 @@ class HTMLPipeline(object):
                 file = step(file)
         return file
 
-    def save_files(self):
-
-        for input_file, output_file in zip(self.files):
+    def compile_and_save_files(self, source_directory: pathlib.Path, output_directory: pathlib.Path):
+        print(self.files)
+        for input_file in self.files:
             output = self.compile_file(input_file)
-            with open(output_file, 'w+') as f:
-                f.write(output)
 
-    def render_file(self, file: pathlib.Path):
-        pass
+            output_path = calculate_save_location(input_file, source_directory, output_directory)
+            if not output_path.parent.exists():
+                output_path.parent.mkdir()
+
+            output_file = output_path.open(mode='w+')
+            output_file.write(output)
+            output_file.close()
 
 
 def markdown_pipeline(source_dir: pathlib.Path, template_dir: pathlib.Path, config: Config):

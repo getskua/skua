@@ -1,4 +1,5 @@
 ---
+template: skua_blogpost
 title: frontmatter
 date: 08-04-2019
 ---

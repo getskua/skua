@@ -33,6 +33,9 @@ class TestMarkdownPipelineFunction(unittest.TestCase):
         self.assertTrue(header_h3 == dictionary['subtitle'])
         self.assertTrue(content_exists is not None)
 
+    def test_file_saving(self):
+        self.pipeline.compile_and_save_files(pathlib.Path('tests/src'), pathlib.Path('tests/build'))
+
 
 class TestConfig(unittest.TestCase):
     def test_loading_from_file(self):
