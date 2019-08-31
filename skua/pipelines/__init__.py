@@ -27,7 +27,6 @@ class HTMLPipeline(object):
         return file
 
     def compile_and_save_files(self, source_directory: pathlib.Path, output_directory: pathlib.Path):
-        print(self.files)
         for input_file in self.files:
             output = self.compile_file(input_file)
 
