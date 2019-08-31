@@ -10,10 +10,17 @@ class TestMarkdownPreprocessor(unittest.TestCase):
             'site_name': "HELLO WORLD!",
             "author": "Person 1"
         })
-        import os
         markdown_preprocessor = MarkdownPreprocessor(config)
         output = markdown_preprocessor('tests/src/index.md')
 
         self.assertTrue(output['site_name'] == config.config['site_name'])
         self.assertTrue(output['author'] == config.config['author'])
         self.assertTrue(output['content'] is not None)
+
+    def test_wikilinks(self):
+        config = Config({
+            'site_name': "HELLO WORLD!",
+            "author": "Person 1"
+        })
+        markdown_preprocessor = MarkdownPreprocessor(config)
+        output = markdown_preprocessor('tests/src/blog/look-an-internal-link.md')

@@ -36,3 +36,4 @@ class TestRenderWithMockSite(unittest.TestCase):
         self.assertTrue(header_h1 == dictionary['title'])
         self.assertTrue(header_h3 == dictionary['subtitle'])
         self.assertTrue(content_exists is not None)
+

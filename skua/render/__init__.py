@@ -64,3 +64,4 @@ class Templates(object):
         :return: The HTML output of the file.
         """
         return self.render_template(template, **kwargs)
+

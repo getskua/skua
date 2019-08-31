@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: wikilinks
+Version: 0.0.3
+Summary: Get a list of Wikipedia articles that link to a website.
+Home-page: http://github.com/edsu/wikilinks
+Author: Ed Summers
+Author-email: ehs@pobox.com
+License: http://www.opensource.org/licenses/mit-license.php
+Description: UNKNOWN
+Platform: UNKNOWN

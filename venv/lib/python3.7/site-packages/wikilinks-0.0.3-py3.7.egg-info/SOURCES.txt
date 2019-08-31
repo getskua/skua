@@ -1,0 +1,10 @@
+README.md
+setup.cfg
+setup.py
+wikilinks.py
+wikilinks.egg-info/PKG-INFO
+wikilinks.egg-info/SOURCES.txt
+wikilinks.egg-info/dependency_links.txt
+wikilinks.egg-info/entry_points.txt
+wikilinks.egg-info/requires.txt
+wikilinks.egg-info/top_level.txt

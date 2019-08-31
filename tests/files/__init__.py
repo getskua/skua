@@ -9,7 +9,8 @@ class TestFindFilesByExtension(unittest.TestCase):
         file_finder = FindFilesByExtension(pathlib.Path('tests/src'))
         output = file_finder()
         expectation = ['tests/src/index.md', 'tests/src/blog/skua-is-a-static-site-generator.md',
-                       'tests/src/blog/skua-is-still-a-static-site-generator.md', 'tests/src/blog/what-is-markdown.md']
+                       'tests/src/blog/skua-is-still-a-static-site-generator.md', 'tests/src/blog/what-is-markdown.md',
+                       'tests/src/blog/look-an-internal-link.md']
         self.assertTrue(len(list(output)) == len(expectation))
         for y in output:
             self.assertTrue(y in expectation)

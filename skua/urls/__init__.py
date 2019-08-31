@@ -1,5 +1,6 @@
 import pathlib
 
+from bs4 import BeautifulSoup
 
 def path2url(file: pathlib.Path, site_url: str, source_directory: pathlib.Path = pathlib.Path('src'),
              output_format: str = 'html') -> str:
