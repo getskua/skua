@@ -19,3 +19,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 )
+
+install_requires = [
+    'markdown',
+    'python-frontmatter',
+    'jinja2',
+    'gitpython'
+]
