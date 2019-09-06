@@ -4,6 +4,8 @@
 FindFiles classes are classes which, when called, return a list of files. These can be used in pipelines to find files to be compiled.
  
 * `FindFilesByExtension` – locates all the files within a directory (and subdirectories) with a specified extension (by default `md`).
+### `skua.files.generate_index`
+Returns a generator object of dictionaries containing the frontmatter, contents and a `pathlib.Path` object (which points to the file's location) of all the files in a folder. To search in subdirectories as well you can specify that the keyword argument `recursive=True`.
 ### Git routines
 !!! warning
     **Warning: This is untested code! Configuring a git repository inside a git repository is tricky, so the code remains untested.**
