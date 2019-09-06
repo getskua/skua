@@ -18,11 +18,12 @@ setuptools.setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ],
-)
+    install_requires=[
+        'python-markdown',
+        'python-frontmatter',
+        'jinja2',
+        'gitpython',
+        'six'
+    ]
 
-install_requires = [
-    'markdown',
-    'python-frontmatter',
-    'jinja2',
-    'gitpython'
-]
+)
