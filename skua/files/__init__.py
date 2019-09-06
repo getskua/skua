@@ -1,4 +1,7 @@
 import pathlib
+from typing import Generator
+
+import frontmatter
 
 
 class FindFilesByExtension(object):
@@ -26,3 +29,17 @@ def calculate_save_location(file: pathlib.Path, source_directory: pathlib.Path,
     post: pathlib.Path = pathlib.Path(''.join(directory.parts[stop + 1:]))
     return pathlib.Path(pre).joinpath(output_directory).joinpath(post).joinpath(
         file.stem + '.' + output_format)
+
+
+def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), extension="md", recursive=False):
+    """
+    Returns a generator object containing dictionaries containing the frontmatter, contents as well as a pathlib.Path
+    object containing the absolute path to each file.
+    :param recursive: Whether or not to search in subdirectories as well as the current directory.
+    :param source_directory: The folder for which you want to generate the index.
+    :param extension: The extension for files (by default `.md`)
+    :return:
+    """
+    files = source_directory.glob('**/*.' + extension) if recursive else source_directory.glob('*.' + extension)
+    for file in files:
+        yield {**frontmatter.load(str(file)), **{'file_path': file}}

@@ -1,7 +1,43 @@
 import pathlib
 import unittest
 
-from skua.files import calculate_save_location, FindFilesByExtension
+from skua.files import calculate_save_location, FindFilesByExtension, generate_index
+
+
+class TestGenerateIndex(unittest.TestCase):
+    def test_not_recursive(self):
+        outputs = generate_index(pathlib.Path('tests/src/blog'))
+        expectations = [{'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '14:55:11 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-still-a-static-site-generator.md')},
+                        {'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '15:33:00 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/what-is-markdown.md')},
+                        {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-a-static-site-generator.md')},
+                        {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/look-an-internal-link.md')}]
+        self.assertTrue(len(expectations) == len(list(outputs)))
+        outputs = generate_index(pathlib.Path('tests/src/blog'))
+        for expectation, output in zip(expectations, outputs):
+            self.assertTrue(expectation == output)
+
+    def test_recursive(self):
+        index = generate_index(pathlib.Path('tests/src/blog'), recursive=True)
+        expectations = [{'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '14:55:11 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-still-a-static-site-generator.md')},
+                        {'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '15:33:00 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/what-is-markdown.md')},
+                        {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-a-static-site-generator.md')},
+                        {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
+                         'title': 'Hello World!', 'subtitle': 'I exist!',
+                         'file_path': pathlib.PosixPath('tests/src/blog/look-an-internal-link.md')}]
 
 
 class TestFindFilesByExtension(unittest.TestCase):
