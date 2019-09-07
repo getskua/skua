@@ -12,7 +12,7 @@ class TestPath2Url(unittest.TestCase):
     def test1(self):
         inputs = [(pathlib.Path('src/blog/skua-is-a-static-site-generator.md'), 'src'),
                   (pathlib.Path('src/second_src/file.md'), pathlib.Path('src/second_src'))]
-        outputs = [path2url(path[0], 'https://example.com', output_directory=pathlib.Path(path[1])) for path in inputs]
+        outputs = [path2url(path[0], 'https://example.com', source_directory=pathlib.Path(path[1])) for path in inputs]
         expectation = ['https://example.com/blog/skua-is-a-static-site-generator.md', 'https://example.com/file.md']
         for y, y_hat in zip(expectation, outputs):
             self.assertTrue(y == y_hat)
