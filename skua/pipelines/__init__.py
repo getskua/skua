@@ -32,7 +32,7 @@ class HTMLPipeline(object):
 
             output_path = calculate_save_location(input_file, source_directory, output_directory)
             if not output_path.parent.exists():
-                output_path.parent.mkdir()
+                output_path.parent.mkdir(parents=True)
 
             output_file = output_path.open(mode='w+')
             output_file.write(output)
