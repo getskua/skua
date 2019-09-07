@@ -2,4 +2,3 @@ mkdocs
 pymdown-extensions
 mkdocs-material
 pygments
-mkdocs-versioned
