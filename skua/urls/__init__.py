@@ -1,7 +1,7 @@
 import pathlib
-from typing import Iterable
 
 from bs4 import BeautifulSoup
+
 
 def path2url(file: pathlib.Path, site_url: str, source_directory: pathlib.Path = pathlib.Path('src'),
              output_format: str = 'html') -> str:
@@ -20,4 +20,16 @@ def path2url(file: pathlib.Path, site_url: str, source_directory: pathlib.Path =
     :return:
     """
     stop = file.parts.index(source_directory.parts[-1])
-    return site_url + '/' + '/'.join(file.parts[stop + 1:-1]) + '/' + file.stem + '.' + output_format
+    intermediate = '/'.join(file.parts[stop + 1:-1])
+    extra = '/' if len(intermediate) > 0 else ''
+    return site_url + '/' + intermediate + extra + file.stem + '.' + output_format
+
+
+def transform_links(output_file, site_url, source_directory=pathlib.Path('tests/src')):
+    soup = BeautifulSoup(output_file, 'html.parser')
+    for a in soup.find_all('a'):
+        link = pathlib.Path(a['href'])
+        index = link.parts.index(source_directory.parts[-1])
+        link = site_url + '/' + '/'.join(link.parts[index + 1:])
+        a['href'] = link
+    return str(soup)
