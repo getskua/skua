@@ -51,7 +51,10 @@ class Templates(object):
 
         :return: The HTML output of the file.
         """
-        return self.templates[template].render(**kwargs)
+        try:
+            return self.templates[template].render(**kwargs)
+        except jinja2.exceptions.TemplateNotFound as e:
+            print("One of the templates that you are inheriting from or including cannot be found. {}".format(e))
 
     def __call__(self, template, **kwargs):
         """
