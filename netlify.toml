@@ -1,4 +1,4 @@
 [build]
 base="/"
 publish="site/"
-command="pip install -r netlify-requirements.txt; mkdocs-versioned build"
+command="pip install -r netlify-requirements.txt; python -m mkdocs-versioned"
