@@ -1,5 +1,14 @@
 language: python
 python:
-- "3.7"
+- '3.7'
 script:
 - python -m unittest tests
+- python setup.py sdist bdist_wheel
+deploy:
+  provider: pypi
+  user: "teymour"
+  password:
+    secure: iHOP5yHPKPOc1V19oLA9wZv63qSLY8STy1LDK5CppzBHTrUihiwmGhTwxijmhnSaeoUsabCwQ0h2OrRdaZeK5c7Xza9xAoxTb+2xNuL4nak6nDHjZuudSlIzKyZh8jtg3MlrzrnPn512n9O18mQp8hqQJS7y45NGJcqjm5ugHIcsHJTehrCyqekEG44u81kzLGyoISis3JKC1Z/ZYGq8DD01Ed95qkzoGl5ayK6HgIreylVE8pcsZGLqm/zl0JeZOEPfFJAYuk5BJKUdhujbTvbjRP0z1pOPvOrQxMIbfR4AJgAnIi8OJwoqdnDE8KXkEe/u6Ab+R6xHH194wFczqIqNYxR77p98PQdAcAkXZ3Nk0Wb6lvJnUIRAao1hrYIf58g4FJwWyffAWY+fuCeViawG5JNop88N8Ujv+mR6v5NcwC6jUOTYULLyzhWwVEjtDFQydSCyJA3pEe38WmjMK9Wbn6Z4dLP5PC9KDmk84gVaKMyhQlAjuPmmLWYjiRQenH01347FH8nggeuQT5F3615McadF1TU/wBi9rr/5vMILs2Y5m1xXG+YO2RKFpCu6FjqNv3MmkNHsBOmVf8OGmqmE8M8ZKGrZ1BXQjfFX/dnVDtg9qaZ7+F7LUEHMs+3aUbfvHmc2GLp+tjflqcHefRAiq4HP664z1ot6wuWHbjs=
+  on:
+    tags: true
+  distributions: "sdist bdist_wheel"
