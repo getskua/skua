@@ -39,6 +39,7 @@ class HTMLPipeline(object):
             output_file.close()
 
 
-def markdown_pipeline(source_dir: pathlib.Path, template_dir: pathlib.Path, config: Config):
+def markdown_pipeline(source_dir: pathlib.Path, template_dir: pathlib.Path, config: Config,
+                      template_prefix: str = 'skua_'):
     return HTMLPipeline(FindFilesByExtension(source_dir), MarkdownPreprocessor(config),
-                        Templates(template_dir))
+                        Templates(template_dir, template_prefix=template_prefix))
