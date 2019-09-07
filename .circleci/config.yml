@@ -13,4 +13,4 @@ jobs:
           pip install -r requirements.txt
     - run:
         name: run tests
-        command: . venv/bin/activate; python -m unittest tests
+        command: python -m unittest tests
