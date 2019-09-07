@@ -1,3 +1,4 @@
+import pathlib
 import unittest
 
 from skua.preprocessors import Config
@@ -17,10 +18,17 @@ class TestMarkdownPreprocessor(unittest.TestCase):
         self.assertTrue(output['author'] == config.config['author'])
         self.assertTrue(output['content'] is not None)
 
-    def test_wikilinks(self):
-        config = Config({
-            'site_name': "HELLO WORLD!",
-            "author": "Person 1"
+
+class TestConfig(unittest.TestCase):
+    def test_load_from_file(self):
+        config = Config.from_file(pathlib.Path('tests/src/config.json'))
+        self.assertTrue(config.config == {
+            "site_name": "Hello World!",
+            "site_author": "Me!"
         })
-        markdown_preprocessor = MarkdownPreprocessor(config)
-        output = markdown_preprocessor('tests/src/blog/look-an-internal-link.md')
+
+    def test_overwrite(self):
+        config = Config.from_file(pathlib.Path('tests/src/config.json'))
+        input_dict = {"site_name": "New name!"}
+        output = config(input_dict)
+        self.assertTrue(output['site_name'] == input_dict['site_name'])

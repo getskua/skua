@@ -7,8 +7,7 @@ class Config(object):
         self.config: dict = config
 
     def __call__(self, file_dict) -> dict:
-        # config keys overwrite the keys specified in the file
-        return {**file_dict, **self.config}
+        return {**self.config, **file_dict}
 
     def __len__(self):
         return len(self.config)

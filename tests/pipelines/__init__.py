@@ -35,16 +35,3 @@ class TestMarkdownPipelineFunction(unittest.TestCase):
 
     def test_file_saving(self):
         self.pipeline.compile_and_save_files(pathlib.Path('tests/src'), pathlib.Path('tests/build'))
-
-
-class TestConfig(unittest.TestCase):
-    def test_loading_from_file(self):
-        config = Config.from_file(pathlib.Path('tests/src/config.json'))
-        expectation = {
-            "site_name": "Hello World!",
-            "site_author": "Me!"
-        }
-        self.assertTrue(len(expectation) == len(config))
-        for key in expectation.keys():
-            self.assertTrue(key in config.config)
-            self.assertTrue(config.config[key] == expectation[key])
