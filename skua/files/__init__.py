@@ -1,5 +1,4 @@
 import pathlib
-from typing import Generator
 
 import frontmatter
 

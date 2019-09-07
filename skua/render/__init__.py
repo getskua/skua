@@ -21,9 +21,12 @@ class Templates(object):
         organisation.
         """
         if not template_dir.exists():
-            raise LookupError("The template folder cannot be found.")
+            raise NotADirectoryError(
+                "The supplied template folder {} could not be found.".format(template_dir.resolve()))
+
         self.env = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(str(template_dir))
+            # Use an absolute path.
+            loader=jinja2.FileSystemLoader(str(template_dir.resolve()))
         )
 
         template_dir_index = [template for template in
@@ -59,9 +62,8 @@ class Templates(object):
         specified without the extension, e.g. to use the template `skua_blogpost.html` you would use `skua_blogpost`
         as the value for the argument `template.
 
-        :param kwargs: Keyword arguments – these are all accessible to the jinja2 template enviroment.
+        :param kwargs: Keyword arguments – these are all accessible to the jinja2 template environment.
 
         :return: The HTML output of the file.
         """
         return self.render_template(template, **kwargs)
-
