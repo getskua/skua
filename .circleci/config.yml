@@ -23,3 +23,25 @@ jobs:
     - run:
         name: upload the build module to pypi
         command: pip install twine --user; twine upload dist/* -u $pypi_username -p $pypi_password
+  test:
+    steps:
+    - checkout
+    - run:
+        name: remove development virtualenv and add new one
+        command: |
+          rm -rf venv
+          python3.7 -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
+    - run:
+        name: run tests
+        command: source venv/bin/activate; pip install -r test-requirements.txt; python -m unittest tests
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+    - build
+  test:
+    jobs:
+    - test
