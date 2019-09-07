@@ -1,4 +1,5 @@
 import pathlib
+from typing import Iterable, List
 
 import frontmatter
 
@@ -30,7 +31,8 @@ def calculate_save_location(file: pathlib.Path, source_directory: pathlib.Path,
         file.stem + '.' + output_format)
 
 
-def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), extension="md", recursive=False):
+def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), extension: str = "md",
+                   recursive: bool = False):
     """
     Returns a generator object containing dictionaries containing the frontmatter, contents as well as a pathlib.Path
     object containing the absolute path to each file.
@@ -42,3 +44,29 @@ def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), ex
     files = source_directory.glob('**/*.' + extension) if recursive else source_directory.glob('*.' + extension)
     for file in files:
         yield {**frontmatter.load(str(file)), **{'file_path': file}}
+
+
+def copy_files(source_directory: pathlib.Path = pathlib.Path('src'),
+               output_directory: pathlib.Path = pathlib.Path('build'), extensions: Iterable[str] = ("html",),
+               recursive: bool = False):
+    """
+    Copy files from the source directory to the destination directory.
+
+    :param source_directory:
+    :param output_directory:
+    :param extensions:
+    :param recursive:
+    :return:
+    """
+    files: List[pathlib.Path] = [*[source_directory.glob('**/*.' + extension) if recursive else source_directory.glob(
+        '*.' + extension) for extension in extensions]]
+    for file in files:
+        output_location = calculate_save_location(file, source_directory, output_directory, output_format=file.suffix)
+
+        opened_file = file.open()
+        opened_location = output_location.open()
+
+        output_location.write_text(opened_file.read())
+
+        opened_file.close()
+        opened_location.close()
