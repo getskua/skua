@@ -1,4 +1,5 @@
 import pathlib
+import random
 import unittest
 
 from bs4 import BeautifulSoup
@@ -6,6 +7,8 @@ from bs4 import BeautifulSoup
 from skua.preprocessors.markdown import MarkdownPreprocessor
 from skua.render import Templates
 from skua.urls import path2url, transform_links
+
+random.seed = 42
 
 
 class TestPath2Url(unittest.TestCase):

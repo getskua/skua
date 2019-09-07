@@ -1,4 +1,5 @@
 import pathlib
+from typing import Iterable
 
 from bs4 import BeautifulSoup
 

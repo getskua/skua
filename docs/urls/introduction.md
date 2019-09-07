@@ -8,7 +8,7 @@ A path can be turned into a URL using `skua.urls.path2url`. This function requir
 **args**
 
 * `file` – a `pathlib.Path` object pointing to the file
-* `site_url` – a string with the website URL
+* `site_url` – a string with the url for your website. 
 
 **kwargs**
 
