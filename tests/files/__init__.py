@@ -1,7 +1,7 @@
 import pathlib
 import unittest
 
-from skua.files import calculate_save_location, FindFilesByExtension, generate_index
+from skua.files import calculate_save_location, FindFilesByExtension, generate_index, copy_files
 
 
 class TestGenerateIndex(unittest.TestCase):
@@ -92,3 +92,9 @@ class TestCalculateSaveLocation(unittest.TestCase):
 
         for y, y_hat in zip(output, expectation):
             self.assertTrue(str(y) == y_hat)
+
+
+class TestCopyFiles(unittest.TestCase):
+    def test(self):
+        copy_files(pathlib.Path('tests/src/'), pathlib.Path('tests/build'), extensions=['yml'],
+                   recursive=True)

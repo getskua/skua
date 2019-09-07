@@ -58,15 +58,26 @@ def copy_files(source_directory: pathlib.Path = pathlib.Path('src'),
     :param recursive:
     :return:
     """
-    files: List[pathlib.Path] = [*[source_directory.glob('**/*.' + extension) if recursive else source_directory.glob(
-        '*.' + extension) for extension in extensions]]
+    glob_patterns: List[str] = ['**/*.' + extension if recursive else '*.' + extension for extension in extensions]
+    files = []
+    for pattern in glob_patterns:
+        files: List[pathlib.Path] = [*files, *source_directory.glob(pattern)]
     for file in files:
-        output_location = calculate_save_location(file, source_directory, output_directory, output_format=file.suffix)
+        if not file.exists():
+            raise FileNotFoundError("The file {} cannot be found.".format(str(file)))
 
-        opened_file = file.open()
-        opened_location = output_location.open()
+        output_location = calculate_save_location(file, source_directory, output_directory,
+                                                  output_format=file.suffix[1:])
 
-        output_location.write_text(opened_file.read())
+        directory: pathlib.Path = output_location.parent
+        if not directory.exists():
+            directory.mkdir(parents=True)
 
-        opened_file.close()
-        opened_location.close()
+        source_file = file.open()
+
+        destination_file = output_location.open(mode='w+')
+
+        output_location.write_text(source_file.read())
+
+        source_file.close()
+        destination_file.close()
