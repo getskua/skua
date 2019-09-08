@@ -1,8 +1,14 @@
 # Skua
-[![Build status](https://travis-ci.org/teymour-aldridge/skua.svg?branch=master)](https://travis-ci.org/teymour-aldridge/skua)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/teymour-aldridge/skua-starter-project)
+
+**Documentation status**
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b9b885cc-1a28-4640-be7e-d37b7b56703b/deploy-status)](https://app.netlify.com/sites/skua/deploys)
 
+
 ### A pythonic static site generator.
+[![Build Status](https://travis-ci.org/teymour-aldridge/skua.svg?branch=master)](https://travis-ci.org/teymour-aldridge/skua)
+p
 Skua is a static site generator designed to allow for more flexibility and extensibility than classic static site generators. 
 ### Documentation
 Skua's documentation is build using [MkDocs](https://mkdocs.org) and is hosted at [skua.netlify.com](https://skua.netlify.com).
