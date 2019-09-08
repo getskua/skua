@@ -21,8 +21,8 @@ class TestGenerateIndex(unittest.TestCase):
                          'file_path': pathlib.PosixPath('tests/src/blog/look-an-internal-link.md')}]
         self.assertTrue(len(expectations) == len(list(outputs)))
         outputs = generate_index(pathlib.Path('tests/src/blog'))
-        for expectation in expectations:
-            self.assertTrue(expectation in outputs)
+        for output in outputs:
+            self.assertTrue(output in expectations)
 
     def test_recursive(self):
         index = generate_index(pathlib.Path('tests/src/blog'), recursive=True)
