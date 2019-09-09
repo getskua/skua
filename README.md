@@ -8,7 +8,6 @@
 
 ### A pythonic static site generator.
 [![Build Status](https://travis-ci.org/teymour-aldridge/skua.svg?branch=master)](https://travis-ci.org/teymour-aldridge/skua)
-p
 Skua is a static site generator designed to allow for more flexibility and extensibility than classic static site generators. 
 ### Documentation
 Skua's documentation is build using [MkDocs](https://mkdocs.org) and is hosted at [skua.netlify.com](https://skua.netlify.com).
@@ -19,7 +18,7 @@ Skua can be imported and used to create Python scripts, which allows for greater
 ### Contributing
 All contributions and contributors are welcome! If you're interested in contributing you should look at the 'boards' and 'wiki' tabs on our [Github page](https://github.com/teymour-aldridge/skua). 
 ### Versioning
-Skua uses romantic versioning.
+Skua uses romantic versioning. We recommend not upgrading to a new version of Skua before you have read the description for the new release. 
 * MAJOR: A conceptually major change with (possible) breaking changes.
 * MINOR: A conceptually minor change with (possible) breaking changes
 * PATCH: Guaranteed not to cause any breaking changes. Used for minor changes, such as:
