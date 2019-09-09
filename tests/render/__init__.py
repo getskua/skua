@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 from skua.preprocessors import Config
 from skua.preprocessors.markdown import MarkdownPreprocessor
-from skua.render import Templates
+from skua.render import Jinja2Templates
 
 
 class TestRenderWithMockSite(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestRenderWithMockSite(unittest.TestCase):
     """
 
     def setUp(self):
-        self.templates = Templates(pathlib.Path('tests/src/templates'))
+        self.templates = Jinja2Templates(pathlib.Path('tests/src/templates'))
         self.config = Config({
             'site_name': "Test Site!",
             'author': "Person 1"

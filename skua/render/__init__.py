@@ -8,6 +8,23 @@ import jinja2
 
 
 class Templates(object):
+    def __init__(self):
+        pass
+
+    def render_template(self, template: str, **kwargs):
+        """
+        Render a template
+        :param template: The name of the template
+        :param kwargs: Key/value pairs to be passed to the template.
+        :return:
+        """
+        return NotImplementedError("You need to override this class and implement this method before you can use it!")
+
+    def __call__(self, template: str, **kwargs):
+        return self.render_template(template, **kwargs)
+
+
+class Jinja2Templates(Templates):
     def __init__(self, template_dir: pathlib.Path, template_extension: str = 'html',
                  template_prefix: str = "skua_"):
         """
@@ -20,6 +37,7 @@ class Templates(object):
         :param template_prefix: All folders without this prefix are ignored. A sensible default is the name of your
         organisation.
         """
+        super(Jinja2Templates, self).__init__()
         if not template_dir.exists():
             raise NotADirectoryError(
                 "The supplied template folder {} could not be found.".format(template_dir.resolve()))

@@ -5,7 +5,7 @@ import unittest
 from bs4 import BeautifulSoup
 
 from skua.preprocessors.markdown import MarkdownPreprocessor
-from skua.render import Templates
+from skua.render import Jinja2Templates
 from skua.urls import path2url, transform_links
 
 random.seed = 42
@@ -24,7 +24,7 @@ class TestPath2Url(unittest.TestCase):
 class TestTransformLinks(unittest.TestCase):
     def test2(self):
         md_preprocessor = MarkdownPreprocessor()
-        templates = Templates(pathlib.Path('tests/src/templates'))
+        templates = Jinja2Templates(pathlib.Path('tests/src/templates'))
         output = templates.render_template(**md_preprocessor(pathlib.Path('tests/src/blog/look-an-internal-link.md')))
         output = transform_links(output, 'https://example.com', source_directory=pathlib.Path('tests/src'))
         soup = BeautifulSoup(output, "html.parser")

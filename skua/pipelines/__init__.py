@@ -4,7 +4,7 @@ from typing import Callable, List
 from skua.files import FindFilesByExtension, calculate_save_location
 from skua.preprocessors import Config
 from skua.preprocessors.markdown import MarkdownPreprocessor
-from skua.render import Templates
+from skua.render import Jinja2Templates
 
 
 class HTMLPipeline(object):
@@ -20,7 +20,7 @@ class HTMLPipeline(object):
 
     def compile_file(self, file: pathlib.Path):
         for step in self.pipeline:
-            if isinstance(step, Templates):
+            if isinstance(step, Jinja2Templates):
                 file = step(**file)
             else:
                 file = step(file)
@@ -42,4 +42,4 @@ class HTMLPipeline(object):
 def markdown_pipeline(source_dir: pathlib.Path, template_dir: pathlib.Path, config: Config,
                       template_prefix: str = 'skua_'):
     return HTMLPipeline(FindFilesByExtension(source_dir), MarkdownPreprocessor(config),
-                        Templates(template_dir, template_prefix=template_prefix))
+                        Jinja2Templates(template_dir, template_prefix=template_prefix))

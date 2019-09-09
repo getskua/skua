@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from skua.pipelines import markdown_pipeline
 from skua.preprocessors import Config
 from skua.preprocessors.markdown import MarkdownPreprocessor
-from skua.render import Templates
+from skua.render import Jinja2Templates
 
 
 class TestMarkdownPipelineFunction(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestMarkdownPipelineFunction(unittest.TestCase):
                                           Config({'site_name': 'Hello World!', 'site_author': 'Me!'}))
 
     def test_creation(self):
-        expectation = [MarkdownPreprocessor, Templates]
+        expectation = [MarkdownPreprocessor, Jinja2Templates]
         for step, instance in zip(self.pipeline.pipeline, expectation):
             self.assertTrue(isinstance(step, instance))
 
