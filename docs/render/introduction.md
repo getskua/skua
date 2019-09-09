@@ -6,4 +6,4 @@ Skua provides a `skua.templates.Jinja2Templates` class – a thin wrapper aroun
 from pathlib import Path
 from skua.render import Jinja2Templates
 templates = Jinja2Templates(Path('src/templates'), template_prefix='template_', template_extension='html')
-```
+``` 

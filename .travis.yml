@@ -5,6 +5,13 @@ script:
 - python -m unittest tests
 - python setup.py sdist bdist_wheel
 deploy:
+- provider: releases
+  file_glob: true
+  api_key:
+    secure: JTL4AmySN5QUZo8jR2UCKorKKB5mv3ECUT4iLw7+GXYUuWEQB4WSjpB/52aBdat/pmAw1Lge5P2QgolUSb2MNDbXLtt9smbM8sFV1AepBDLiQUawnDuMjVjyy7PZUWQpUg2sKHGwAuqrKuPvjvALW9xOT83XHCaJakPr66Dk7Y55qD1FaClqHNTiRDhHVTBaPibELrMqtHRKlHYOIV+gIy1p+Gu2znKFnbOGC8Z5VoA4WdNFbjKroWX/Ul+9o06lXCqN0ZFYMCDGYfMLS8FY51gW14ancJJG4k9dQTVjT4gy95Omgsj+1FT3sPMRGkU83suib0jlU6PJWWERcxR11cg3G/JTj8CG8lbgzeODjYdd7uCUgyYUDUl3ORg6eGIU2ElNxta4TrS3IvzIdLbRQS1DnLzjzKsS/kmlD5KQ9qyjziDYAGXNaCEI+fa2ciDHXu+h7AKXTNtNiyL+L8HqrPlf6fXT8i8TBLeDP46PqfQ4sDInpFmHsuiZ59vjqikFfgaVF3o7qqEgfGZxpHuVxHOxddkEK1CC4RjX/Xd9YbsACn53m5dfsDCWV6AUrJbDZZya6b4PnA5EvtR1C8pvLrOB9IC4A5q19cMSngWHSocIEFwc3DSZcpbHLEE0EwuTSsLR87DCMKAalnq0ypWHwPnQ3AgA9/R+gFH1+QFOnsc=
+  file: dist/*
+  on:
+    repo: teymour-aldridge/skua
 - provider: pypi
   user: teymour
   password:
@@ -12,11 +19,4 @@ deploy:
   on:
     tags: true
     distributions: sdist bdist_wheel
-    repo: teymour-aldridge/skua
-- provider: releases
-  file_glob: true
-  api_key:
-    secure: JTL4AmySN5QUZo8jR2UCKorKKB5mv3ECUT4iLw7+GXYUuWEQB4WSjpB/52aBdat/pmAw1Lge5P2QgolUSb2MNDbXLtt9smbM8sFV1AepBDLiQUawnDuMjVjyy7PZUWQpUg2sKHGwAuqrKuPvjvALW9xOT83XHCaJakPr66Dk7Y55qD1FaClqHNTiRDhHVTBaPibELrMqtHRKlHYOIV+gIy1p+Gu2znKFnbOGC8Z5VoA4WdNFbjKroWX/Ul+9o06lXCqN0ZFYMCDGYfMLS8FY51gW14ancJJG4k9dQTVjT4gy95Omgsj+1FT3sPMRGkU83suib0jlU6PJWWERcxR11cg3G/JTj8CG8lbgzeODjYdd7uCUgyYUDUl3ORg6eGIU2ElNxta4TrS3IvzIdLbRQS1DnLzjzKsS/kmlD5KQ9qyjziDYAGXNaCEI+fa2ciDHXu+h7AKXTNtNiyL+L8HqrPlf6fXT8i8TBLeDP46PqfQ4sDInpFmHsuiZ59vjqikFfgaVF3o7qqEgfGZxpHuVxHOxddkEK1CC4RjX/Xd9YbsACn53m5dfsDCWV6AUrJbDZZya6b4PnA5EvtR1C8pvLrOB9IC4A5q19cMSngWHSocIEFwc3DSZcpbHLEE0EwuTSsLR87DCMKAalnq0ypWHwPnQ3AgA9/R+gFH1+QFOnsc=
-  file: dist/*
-  on:
     repo: teymour-aldridge/skua
