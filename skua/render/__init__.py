@@ -46,6 +46,7 @@ class Jinja2Templates(Templates):
             # Use an absolute path.
             loader=jinja2.FileSystemLoader(str(template_dir.resolve()))
         )
+        self.template_dir: pathlib.Path = template_dir
 
         template_dir_index = [template for template in
                               glob.glob(os.path.join(os.path.abspath(str(template_dir)), '**'), recursive=True) if
@@ -72,7 +73,11 @@ class Jinja2Templates(Templates):
         try:
             return self.templates[template].render(**kwargs)
         except jinja2.exceptions.TemplateNotFound as e:
-            print("One of the templates that you are inheriting from or including cannot be found. {}".format(e))
+            print(
+                "One of the templates that you are inheriting from or including cannot be found. Please ensure that "
+                "you have specified the location of the template you are inheriting from as a path relative to {}".format(
+                    self.template_dir.resolve(),
+                    e))
 
     def __call__(self, template, **kwargs):
         """

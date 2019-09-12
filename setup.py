@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="skua",
-    version="0.3.0-beta.2",
+    version="0.3.0-beta.3",
     author="Teymour Aldridge",
     author_email="teymour.aldridge@icloud.com",
     description="A static site generator.",
@@ -19,7 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'python-markdown',
+        'markdown',
         'python-frontmatter',
         'jinja2',
         'gitpython',
