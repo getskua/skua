@@ -9,16 +9,21 @@ class TestGenerateIndex(unittest.TestCase):
         outputs = generate_index(pathlib.Path('tests/src/blog'))
         expectations = [{'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '14:55:11 UTC',
                          'title': 'Hello World!', 'subtitle': 'I exist!',
-                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-still-a-static-site-generator.md')},
+                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-still-a-static-site-generator.md'),
+                         'content': '# Skua remains a static site generator\n(No surprises here!)\n\n**This site is for testing purposes (hence the gibberish content)!**'},
                         {'template': 'skua_blogpost', 'publish_date': '22/08/2019', 'publish_time': '15:33:00 UTC',
                          'title': 'Hello World!', 'subtitle': 'I exist!',
-                         'file_path': pathlib.PosixPath('tests/src/blog/what-is-markdown.md')},
+                         'file_path': pathlib.PosixPath('tests/src/blog/what-is-markdown.md'),
+                         'content': '# Markdown is a markup language\n(No surprises here)\n\n**This site is for testing purposes (hence the gibberish content)!**'},
                         {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
                          'title': 'Hello World!', 'subtitle': 'I exist!',
-                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-a-static-site-generator.md')},
+                         'file_path': pathlib.PosixPath('tests/src/blog/skua-is-a-static-site-generator.md'),
+                         'content': '# Skua is a static site generator\n(No surprises here)\n\n**This site is for testing purposes (hence the gibberish content)!**'},
                         {'template': 'skua_blogpost', 'publish_date': '19/08/2019', 'publish_time': '12:01:00 UTC',
                          'title': 'Hello World!', 'subtitle': 'I exist!',
-                         'file_path': pathlib.PosixPath('tests/src/blog/look-an-internal-link.md')}]
+                         'file_path': pathlib.PosixPath('tests/src/blog/look-an-internal-link.md'),
+                         'content': '[Link](tests/src/blog/skua-is-a-static-site-generator.md)'}]
+
         self.assertTrue(len(expectations) == len(list(outputs)))
         outputs = generate_index(pathlib.Path('tests/src/blog'))
         for output in outputs:

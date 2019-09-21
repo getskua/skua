@@ -43,7 +43,8 @@ def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), ex
     """
     files = source_directory.glob('**/*.' + extension) if recursive else source_directory.glob('*.' + extension)
     for file in files:
-        yield {**frontmatter.load(str(file)), **{'file_path': file}}
+        yield {**frontmatter.load(str(file)), **{'file_path': file},
+               **{'content': frontmatter.load(str(file)).content}}
 
 
 def copy_files(source_directory: pathlib.Path = pathlib.Path('src'),
