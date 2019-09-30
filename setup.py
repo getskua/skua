@@ -23,7 +23,8 @@ setuptools.setup(
         'python-frontmatter',
         'jinja2',
         'gitpython',
-        'six'
+        'six',
+        'beautifulsoup4'
     ]
 
 )
