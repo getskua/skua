@@ -25,7 +25,7 @@ class Templates(object):
 
 
 class Jinja2Templates(Templates):
-    def __init__(self, template_dir: pathlib.Path, template_extension: str = 'html',
+    def __init__(self, template_dir: Union[pathlib.Path, str], template_extension: str = 'html',
                  template_prefix: str = "skua_"):
         """
         A thin wrapper around jinja2's template environment.
@@ -37,11 +37,12 @@ class Jinja2Templates(Templates):
         :param template_prefix: All folders without this prefix are ignored. A sensible default is the name of your
         organisation.
         """
+        if isinstance(template_dir, str):
+            template_dir = pathlib.Path(template_dir)
         super(Jinja2Templates, self).__init__()
         if not template_dir.exists():
             raise NotADirectoryError(
                 "The supplied template folder {} could not be found.".format(template_dir.resolve()))
-
         self.env = jinja2.Environment(
             # Use an absolute path.
             loader=jinja2.FileSystemLoader(str(template_dir.resolve()))

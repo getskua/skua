@@ -1,11 +1,13 @@
 import pathlib
-from typing import Iterable, List
+from typing import Iterable, List, Union
 
 import frontmatter
 
 
 class FindFilesByExtension(object):
-    def __init__(self, source_directory: pathlib.Path = pathlib.Path("src"), extension="md"):
+    def __init__(self, source_directory: Union[pathlib.Path, str] = pathlib.Path("src"), extension="md"):
+        if isinstance(source_directory, str):
+            source_directory = pathlib.Path(source_directory)
         self.source_directory: pathlib.Path = source_directory
         self.extension: str = extension
 
@@ -13,8 +15,8 @@ class FindFilesByExtension(object):
         return self.source_directory.glob('**/*.' + self.extension)
 
 
-def calculate_save_location(file: pathlib.Path, source_directory: pathlib.Path,
-                            output_directory: pathlib.Path, output_format: str = 'html') -> pathlib.Path:
+def calculate_save_location(file: Union[pathlib.Path, str], source_directory: Union[pathlib.Path, str],
+                            output_directory: Union[pathlib.Path, str], output_format: str = 'html') -> pathlib.Path:
     """
     Calculates where a file should be saved.
     :param file: A pathlib.Path object pointing to the file.
@@ -23,6 +25,13 @@ def calculate_save_location(file: pathlib.Path, source_directory: pathlib.Path,
     :param output_format: The extension for the save location.
     :return:
     """
+    if isinstance(file, str):
+        file = pathlib.Path(file)
+    if isinstance(source_directory, str):
+        source_directory = pathlib.Path(source_directory)
+    if isinstance(output_directory, str):
+        output_directory = pathlib.Path(output_directory)
+
     directory: pathlib.Path = file.parent
     start, stop = directory.parts.index(source_directory.parts[0]), directory.parts.index(source_directory.parts[-1])
     pre: pathlib.Path = pathlib.Path(''.join(directory.parts[:start]))
@@ -31,7 +40,7 @@ def calculate_save_location(file: pathlib.Path, source_directory: pathlib.Path,
         file.stem + '.' + output_format)
 
 
-def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), extension: str = "md",
+def generate_index(source_directory: Union[pathlib.Path, str] = pathlib.Path("src/blog"), extension: str = "md",
                    recursive: bool = False):
     """
     Returns a generator object containing dictionaries containing the frontmatter, contents as well as a pathlib.Path
@@ -41,14 +50,17 @@ def generate_index(source_directory: pathlib.Path = pathlib.Path("src/blog"), ex
     :param extension: The extension for files (by default `.md`)
     :return:
     """
+    if isinstance(source_directory, str):
+        source_directory = pathlib.Path(source_directory)
     files = source_directory.glob('**/*.' + extension) if recursive else source_directory.glob('*.' + extension)
     for file in files:
         yield {**frontmatter.load(str(file)), **{'file_path': file},
                **{'content': frontmatter.load(str(file)).content}}
 
 
-def copy_files(source_directory: pathlib.Path = pathlib.Path('src'),
-               output_directory: pathlib.Path = pathlib.Path('build'), extensions: Iterable[str] = ("html",),
+def copy_files(source_directory: Union[pathlib.Path, str] = pathlib.Path('src'),
+               output_directory: Union[pathlib.Path, str] = pathlib.Path('build'),
+               extensions: Iterable[str] = ("html",),
                recursive: bool = False):
     """
     Copy files from the source directory to the destination directory.
@@ -59,6 +71,11 @@ def copy_files(source_directory: pathlib.Path = pathlib.Path('src'),
     :param recursive:
     :return:
     """
+    if isinstance(source_directory, str):
+        source_directory = pathlib.Path(source_directory)
+    if isinstance(output_directory, str):
+        output_directory = pathlib.Path(output_directory)
+
     glob_patterns: List[str] = ['**/*.' + extension if recursive else '*.' + extension for extension in extensions]
     files = []
     for pattern in glob_patterns:
