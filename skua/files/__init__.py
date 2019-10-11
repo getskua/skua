@@ -1,4 +1,5 @@
 import pathlib
+import shutil
 from typing import Iterable, List, Union
 
 import frontmatter
@@ -91,11 +92,8 @@ def copy_files(source_directory: Union[pathlib.Path, str] = pathlib.Path('src'),
         if not directory.exists():
             directory.mkdir(parents=True)
 
-        source_file = file.open()
+        source_file = str(file)
 
-        destination_file = output_location.open(mode='w+')
+        output_location = str(output_location)
 
-        output_location.write_text(source_file.read())
-
-        source_file.close()
-        destination_file.close()
+        shutil.copy(source_file, output_location)
