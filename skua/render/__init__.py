@@ -2,7 +2,7 @@ import glob
 import os
 import pathlib
 import re
-from typing import Dict
+from typing import Dict, Union
 
 import jinja2
 
