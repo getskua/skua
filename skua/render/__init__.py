@@ -5,6 +5,7 @@ import re
 from typing import Dict, Union
 
 import jinja2
+from pathos.multiprocessing import Pool
 
 
 class Templates(object):
@@ -76,9 +77,8 @@ class Jinja2Templates(Templates):
         except jinja2.exceptions.TemplateNotFound as e:
             print(
                 "One of the templates that you are inheriting from or including cannot be found. Please ensure that "
-                "you have specified the location of the template you are inheriting from as a path relative to {}".format(
-                    self.template_dir.resolve(),
-                    e))
+                "you have specified the location of the template you are inheriting from as a path "
+                "relative to {}".format(self.template_dir.resolve(), e))
 
     def __call__(self, template, **kwargs):
         """
@@ -94,3 +94,16 @@ class Jinja2Templates(Templates):
         :return: The HTML output of the file.
         """
         return self.render_template(template, **kwargs)
+
+    def render_template_from_dict(self, template, dict):
+        return self.render_template(template, **dict)
+
+    def render_parallel(self, items, worker_count: int = 4):
+        """
+        Renders multiple templates in parallel. May cause the computer to crash if too many templates are rendered at once.
+        :param items: A tuple in the form ((template_name, dictionary_with_template_variables), ...).
+        :param worker_count: The number of workers to use. By default this number is four.
+        :return: The rendered templates.
+        """
+        p = Pool(worker_count)
+        return p.starmap(self.render_template_from_dict, items[:][0], items[:][1])
