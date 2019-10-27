@@ -24,7 +24,8 @@ setuptools.setup(
         'jinja2',
         'gitpython',
         'six',
-        'beautifulsoup4'
+        'beautifulsoup4',
+        'pathos'
     ]
 
 )
