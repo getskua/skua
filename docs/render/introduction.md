@@ -1,11 +1,20 @@
-# Render
-**Turn static files into HTML.**
-## Introduction
-Skua provides a `skua.templates.Jinja2Templates` class – a thin wrapper around a Jinja2 environment. The `Templates` object needs to be initialised with the template folder – provided as a `pathlib.Path`. Jinja2 templates need to be prefixed with the user-specified prefix (by default "skua_" - specified in the keyword argument `template_prefix`) and have the user-specified extension (by defualt `html` – specified in the keyword argument `template_extension`)
+# Rendering
+## Jinja2
+[Jinja2](https://github.com/pallets/jinja2) is a popular templating language which is easy to use. To make it easier to get started with Jinja2, Skua provides a class called `Jinja2Templates` which provides an easy interface to render Jinja2 templates. 
+
+To render files, `Jinja2Templates` offers a method `render_template` which takes the name of the template you want to use to render plus an unlimited number of keyword arguments which are made available to your Jinja2 templates as variables. Note that you can supply the template to use as a keyword argument as well. 
+
 ```python
-from pathlib import Path
 from skua.render import Jinja2Templates
-templates = Jinja2Templates(Path('src/templates'), template_prefix='template_', template_extension='html')
-``` 
-## `Jinja2Templates`
-Jinja2Templates is a class providing support for Jinja2 templating. It acts as a thin wrapper around the standard Jinja2 `Environment` class adding an easier interface to render templates as well as the ability to render multiple templates in parallel. 
+templates = Jinja2Templates('templates', template_extension='html', template_prefix='template_')
+templates.render_template('template_blogpost', keyword='arguments')
+```
+
+### Parallel rendering
+You may want to render lots of files in parallel. This is particularly useful in cases where you want to render lots of files quickly. Skua uses Python's `multiprocessing` module to get around the limitations imposed by the GIL (Global Interpreter Lock).
+
+```python
+from skua.render import render_jinja2_parallel
+output_html = render_jinja2_parallel([{}, {}, {}, {}], template_prefix='skua_', template_extension='html', template_dir='templates')
+# output html is a list of rendered html files – you then need to save these files somewhere.
+```
