@@ -17,7 +17,7 @@ class TestRenderWithMockSite(unittest.TestCase):
         self.templates = Jinja2Templates(pathlib.Path('tests/src/templates'))
         self.config = Config({
             'site_name': "Test Site!",
-            'author': "Person 1"
+            'author': "Person 1",
         })
         self.md_preprocessor = MarkdownPreprocessor(self.config)
 
@@ -37,3 +37,9 @@ class TestRenderWithMockSite(unittest.TestCase):
         self.assertTrue(header_h3 == dictionary['subtitle'])
         self.assertTrue(content_exists is not None)
 
+    def test_parallel_processing(self):
+        file_list = pathlib.Path('tests/src').rglob('*.md')
+        files = []
+        for file in file_list:
+            files.append(['skua_blogpost', self.md_preprocessor(file)])
+        result = self.templates.render_parallel(files)
