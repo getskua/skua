@@ -25,7 +25,6 @@ setuptools.setup(
         'gitpython',
         'six',
         'beautifulsoup4',
-        'pathos'
     ]
 
 )

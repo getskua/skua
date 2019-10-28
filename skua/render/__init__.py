@@ -2,10 +2,10 @@ import glob
 import os
 import pathlib
 import re
+from multiprocessing import Queue, Process
 from typing import Dict, Union
 
 import jinja2
-from pathos.multiprocessing import Pool
 
 
 class Templates(object):
@@ -95,15 +95,51 @@ class Jinja2Templates(Templates):
         """
         return self.render_template(template, **kwargs)
 
-    def render_template_from_dict(self, template, dict):
-        return self.render_template(template, **dict)
 
-    def render_parallel(self, items, worker_count: int = 4):
-        """
-        Renders multiple templates in parallel. May cause the computer to crash if too many templates are rendered at once.
-        :param items: A tuple in the form ((template_name, dictionary_with_template_variables), ...).
-        :param worker_count: The number of workers to use. By default this number is four.
-        :return: The rendered templates.
-        """
-        p = Pool(worker_count)
-        return p.starmap(self.render_template_from_dict, items[:][0], items[:][1])
+def _render_file_jinja2(q, file_dictionary: dict, templates: dict, template_name: str):
+    """
+
+    :param file_dictionary:
+    :param templates:
+    :param template_name:
+    :return:
+    """
+    q.put(templates[template_name].render(**file_dictionary))
+
+
+def render_jinja2_parallel(dictionaries, template_prefix: str = 'skua_', template_extension: str = 'html',
+                           template_dir: Union[pathlib.Path, str] = pathlib.Path('templates')):
+    """
+
+    :param dictionaries:
+    :param template_prefix:
+    :param template_extension:
+    :param template_dir:
+    :return:
+    """
+    if not isinstance(template_dir, pathlib.Path):
+        template_dir = pathlib.Path(template_dir)
+
+    template_environment = jinja2.Environment(loader=jinja2.FileSystemLoader(str(template_dir.resolve())))
+
+    template_dir_index = [template for template in
+                          glob.glob(os.path.join(os.path.abspath(str(template_dir)), '**'), recursive=True) if
+                          re.search(template_prefix, template) and os.path.splitext(os.path.split(template)[1])[
+                              1] == '.' + template_extension]
+
+    templates: Dict = dict(
+        [(os.path.splitext(os.path.split(str(template_file))[1])[0],
+          template_environment.get_template(os.path.relpath(template_file, str(template_dir)))) for
+         template_file in template_dir_index])
+
+    q = Queue()
+    processes = [Process(target=_render_file_jinja2, args=(q, dictionary, templates, dictionary['template'])) for
+                 dictionary in dictionaries]
+
+    for p in processes:
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    return [q.get() for _ in processes]
