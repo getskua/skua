@@ -1,6 +1,9 @@
-name: Python package
+name: Test package
 
-on: [push]
+on: 
+  push:
+    paths: 
+      - "skua/**/*"
 
 jobs:
   build:
